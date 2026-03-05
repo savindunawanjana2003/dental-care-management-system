@@ -1,0 +1,1125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DentalCare | Professional Dental Clinic</title>
+    <meta
+      name="description"
+      content="Professional dental care services with certified specialists. Book your appointment today for a healthy, beautiful smile."
+    />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+
+    <style>
+      /* Full screen carousel */
+      .carousel,
+      .carousel-item,
+      .carousel-item img {
+        height: 100vh;
+      }
+
+      .carousel-item img {
+        object-fit: cover;
+      }
+
+      /* Dark overlay */
+      .overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+      }
+
+      /* Navbar */
+      .navbar {
+        background: rgba(0, 0, 0, 0.7);
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        padding: 15px 0;
+      }
+
+      .navbar.scrolled {
+        background: rgba(0, 0, 0, 0.95);
+        padding: 10px 0;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Carousel caption */
+      .carousel-caption {
+        bottom: 0;
+        top: 0;
+        text-align: left;
+        padding-left: 50px;
+        padding-right: 50px;
+      }
+
+      /* Buttons */
+      .btn-primary {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+        padding: 12px 30px;
+        font-weight: 600;
+        transition: all 10s ease;
+      }
+
+      .btn-primary:hover {
+        background-color: #0b5ed7;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.3);
+      }
+
+      .btn-outline-light:hover {
+        transform: translateY(-3px);
+      }
+
+      /* Hero text */
+      .hero-title {
+        font-size: 3.5rem;
+        font-weight: 700;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+      }
+
+      .hero-subtitle {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        max-width: 600px;
+        line-height: 1.6;
+      }
+
+      /* Appointment CTA */
+      .appointment-cta {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 1000;
+      }
+
+      .btn-appointment {
+        background-color: #198754;
+        color: white;
+        border-radius: 50px;
+        padding: 15px 25px;
+        font-weight: 600;
+        box-shadow: 0 5px 15px rgba(25, 135, 84, 0.4);
+        transition: all 0.3s ease;
+      }
+
+      .btn-appointment:hover {
+        background-color: #157347;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(25, 135, 84, 0.4);
+      }
+
+      /* Features Section */
+      .features-section {
+        padding: 100px 0;
+        background-color: #f8f9fa;
+      }
+
+      .contactBox {
+        border-radius: 10px;
+        background-color: #1a6eeb;
+        gap: 40px;
+        width: 25vw;
+      }
+
+      #contactSectionId {
+        display: flex;
+        justify-content: center;
+      }
+
+      .feature-icon {
+        font-size: 3rem;
+        color: #0d6efd;
+        margin-bottom: 20px;
+      }
+
+      /* Carousel indicators */
+      .carousel-indicators button {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin: 0 8px;
+      }
+
+      /* Treatments table */
+      .category-header {
+        background-color: #e9ecef;
+        font-weight: bold;
+        font-size: 1.1em;
+      }
+
+      .category-header td {
+        padding: 15px 10px !important;
+      }
+
+      .treatment-description {
+        font-size: 0.85em;
+        color: #666;
+        font-style: italic;
+        margin-top: 5px;
+      }
+
+      .table th {
+        background-color: #0d6efd !important;
+        color: white;
+        vertical-align: middle;
+      }
+
+      /* Doctors section */
+      .doctor-card {
+        transition: transform 0.3s ease;
+        border: none;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .doctor-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .doctor-img {
+        height: 250px;
+        object-fit: cover;
+      }
+
+      /* Contact section */
+      .contact-info-card {
+        background: linear-gradient(135deg, #0d6efd, #0dcaf0);
+        color: rgb(245, 245, 245);
+        border-radius: 10px;
+        padding: 30px;
+        margin-left: 10vw;
+      }
+
+      .contact-icon {
+        font-size: 2rem;
+        margin-bottom: 15px;
+      }
+
+      /* Loading animation for images */
+      .carousel-item img {
+        object-fit: cover;
+        background: linear-gradient(
+          90deg,
+          #f0f0f0 25%,
+          #e0e0e0 50%,
+          #f0f0f0 75%
+        );
+        background-size: 200% 100%;
+        animation: loading 10s infinite;
+      }
+
+      @keyframes loading {
+        0% {
+          background-position: 200% 0;
+        }
+        100% {
+          background-position: -200% 0;
+        }
+      }
+
+      /* Section spacing */
+      section {
+        padding: 80px 0;
+      }
+
+      /* Divider */
+      .section-divider {
+        width: 100px;
+        height: 3px;
+        background-color: #0d6efd;
+        margin: 0 auto 30px;
+        border-radius: 10px;
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 768px) {
+        .carousel-caption {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+
+        /* #contactSectionId {
+          position: relative;
+        } */
+
+        .contactBox {
+          /* position: absolute;
+          left: 0;
+          right: 0;
+          margin: 0;
+          bottom: 20px; */
+          width: 100vw;
+        }
+
+        .hero-title {
+          font-size: 2.5rem;
+        }
+
+        .hero-subtitle {
+          font-size: 1rem;
+        }
+
+        .btn-primary,
+        .btn-outline-light {
+          padding: 10px 20px;
+        }
+
+        .table {
+          font-size: 0.9em;
+        }
+
+        .treatment-description {
+          font-size: 0.8em;
+        }
+
+        .doctor-img {
+          height: 200px;
+        }
+
+        .appointment-cta {
+          bottom: 20px;
+          right: 20px;
+        }
+
+        .btn-appointment {
+          padding: 12px 20px;
+          font-size: 0.9em;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .carousel,
+        .carousel-item,
+        .carousel-item img {
+          height: 80vh;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ================= NAVBAR ================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand fw-bold fs-3" href="#">
+          <i class="bi bi-tooth me-2"></i>DentalCare
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#nav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#doctors">Doctors</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+            <li class="nav-item ms-lg-2">
+              <a
+                class="btn btn-outline-light mt-2 mt-lg-0"
+                href="tel:+1234567890"
+              >
+                <i class="bi bi-telephone me-2"></i>Call Now
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ================= CAROUSEL ================= -->
+    <header>
+      <div
+        id="heroCarousel"
+        class="carousel slide carousel-fade"
+        data-bs-ride="carousel"
+        data-bs-interval="4000"
+      >
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#heroCarousel"
+            data-bs-slide-to="0"
+            class="active"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#heroCarousel"
+            data-bs-slide-to="1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#heroCarousel"
+            data-bs-slide-to="2"
+          ></button>
+        </div>
+
+        <div class="carousel-inner">
+          <!-- Slide 1 -->
+          <div class="carousel-item active">
+            <img
+              src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+              class="d-block w-100"
+              alt="Modern Dental Clinic Interior with professional equipment"
+            />
+            <div class="overlay"></div>
+
+            <div
+              class="carousel-caption d-flex flex-column justify-content-center h-100"
+            >
+              <h1 class="hero-title">Professional Dental Care You Can Trust</h1>
+              <p class="hero-subtitle">
+                Experience world-class dental treatment in a comfortable and
+                caring environment. Our certified dentists use the latest
+                technology to ensure your smile is healthy and beautiful.
+              </p>
+              <div class="d-flex gap-3">
+                <a href="#contact" class="btn btn-primary">
+                  <i class="bi bi-calendar-check me-2"></i>Book Appointment
+                </a>
+                <a href="#services" class="btn btn-outline-light">
+                  <i class="bi bi-list-check me-2"></i>Our Services
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="carousel-item">
+            <img
+              src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+              class="d-block w-100"
+              alt="Dentist providing gentle treatment to patient"
+            />
+            <div class="overlay"></div>
+
+            <div
+              class="carousel-caption d-flex flex-column justify-content-center h-100"
+            >
+              <h1 class="hero-title">Pain-Free Dental Treatments</h1>
+              <p class="hero-subtitle">
+                We specialize in gentle, anxiety-free dentistry with advanced
+                pain management techniques. Your comfort is our priority during
+                every procedure.
+              </p>
+              <div class="d-flex gap-3">
+                <a href="#contact" class="btn btn-primary">
+                  <i class="bi bi-telephone me-2"></i>Call for Consultation
+                </a>
+                <a href="#doctors" class="btn btn-outline-light">
+                  <i class="bi bi-people me-2"></i>Meet Our Team
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="carousel-item">
+            <img
+              src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
+              class="d-block w-100"
+              alt="Modern dental equipment and technology"
+            />
+            <div class="overlay"></div>
+
+            <div
+              class="carousel-caption d-flex flex-column justify-content-center h-100"
+            >
+              <h1 class="hero-title">Advanced Dental Technology</h1>
+              <p class="hero-subtitle">
+                State-of-the-art equipment combined with expert care ensures
+                precise diagnoses and effective treatments for optimal oral
+                health.
+              </p>
+              <div class="d-flex gap-3">
+                <a href="#contact" class="btn btn-primary">
+                  <i class="bi bi-clock me-2"></i>Same Day Emergency
+                </a>
+                <a href="#services" class="btn btn-outline-light">
+                  <i class="bi bi-gear me-2"></i>View Technology
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Carousel Controls -->
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#heroCarousel"
+          data-bs-slide="prev"
+        >
+          <span
+            class="carousel-control-prev-icon"
+            aria-label="Previous slide"
+          ></span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#heroCarousel"
+          data-bs-slide="next"
+        >
+          <span
+            class="carousel-control-next-icon"
+            aria-label="Next slide"
+          ></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ================= APPOINTMENT CTA ================= -->
+    <div id="bookNowBtn" class="appointment-cta">
+      <a href="pages/modalexsai.html" class="btn btn-appointment">
+        <i class="bi bi-calendar-plus me-2"></i>Book Now
+      </a>
+    </div>
+
+    <!-- ================= FEATURES SECTION ================= -->
+    <section class="features-section" id="services">
+      <div class="container">
+        <div class="row text-center mb-5">
+          <div class="col-12">
+            <h2 class="display-5 fw-bold mb-3">Why Choose DentalCare?</h2>
+            <p class="text-muted">
+              Exceptional dental care with your comfort in mind
+            </p>
+            <div class="section-divider"></div>
+          </div>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100 doctor-card">
+              <div class="card-body text-center p-4">
+                <div class="feature-icon">
+                  <i class="bi bi-shield-check"></i>
+                </div>
+                <h4 class="card-title">Certified Specialists</h4>
+                <p class="card-text">
+                  Our dentists are board-certified with years of experience in
+                  various dental specialties.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100 doctor-card">
+              <div class="card-body text-center p-4">
+                <div class="feature-icon">
+                  <i class="bi bi-clock-history"></i>
+                </div>
+                <h4 class="card-title">Emergency Care</h4>
+                <p class="card-text">
+                  Same-day emergency appointments available. We're here when you
+                  need us most.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100 doctor-card">
+              <div class="card-body text-center p-4">
+                <div class="feature-icon">
+                  <i class="bi bi-credit-card"></i>
+                </div>
+                <h4 class="card-title">Flexible Payment</h4>
+                <p class="card-text">
+                  Multiple payment options and insurance acceptance to make
+                  dental care accessible.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TREATMENTS SECTION ================= -->
+    <section class="bg-light">
+      <div class="container">
+        <div class="row text-center mb-5">
+          <div class="col-12">
+            <h2 class="display-5 fw-bold mb-3">Our Dental Treatments</h2>
+            <p class="text-muted">
+              Comprehensive dental services for all your needs
+            </p>
+            <div class="section-divider"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="table-responsive">
+              <table class="table table-bordered">
+                <thead class="table-dark">
+                  <tr>
+                    <th style="width: 15%">Category</th>
+                    <th>Name of Treatment</th>
+                    <th style="width: 20%">Typical Duration</th>
+                  </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                  <!-- Preventive Dentistry -->
+                  <tr class="category-header">
+                    <td colspan="3" class="text-start fs-5">
+                      Preventive Dentistry
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Preventive</td>
+                    <td>
+                      Dental Examination & Consultation
+                      <div class="treatment-description">
+                        Comprehensive oral examination and treatment planning
+                      </div>
+                    </td>
+                    <td>30-45 mins</td>
+                  </tr>
+                  <tr>
+                    <td>Preventive</td>
+                    <td>
+                      Professional Dental Cleaning
+                      <div class="treatment-description">
+                        Removal of plaque, tartar and surface stains
+                      </div>
+                    </td>
+                    <td>45-60 mins</td>
+                  </tr>
+                  <tr>
+                    <td>Preventive</td>
+                    <td>
+                      Fluoride Treatment
+                      <div class="treatment-description">
+                        Application of fluoride to strengthen tooth enamel
+                      </div>
+                    </td>
+                    <td>15-20 mins</td>
+                  </tr>
+                  <tr>
+                    <td>Preventive</td>
+                    <td>
+                      Dental Sealants
+                      <div class="treatment-description">
+                        Protective coating applied to the chewing surfaces
+                      </div>
+                    </td>
+                    <td>15-30 mins</td>
+                  </tr>
+
+                  <!-- Restorative Dentistry -->
+                  <tr class="category-header">
+                    <td colspan="3" class="text-start fs-5">
+                      Restorative Dentistry
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Restorative</td>
+                    <td>
+                      Dental Fillings (Composite)
+                      <div class="treatment-description">
+                        Tooth-colored fillings for cavities
+                      </div>
+                    </td>
+                    <td>30-60 mins</td>
+                  </tr>
+                  <tr>
+                    <td>Restorative</td>
+                    <td>
+                      Dental Crowns
+                      <div class="treatment-description">
+                        Custom-made caps to restore damaged teeth
+                      </div>
+                    </td>
+                    <td>2 visits (60-90 mins each)</td>
+                  </tr>
+                  <tr>
+                    <td>Restorative</td>
+                    <td>
+                      Dental Bridges
+                      <div class="treatment-description">
+                        Fixed prosthesis to replace missing teeth
+                      </div>
+                    </td>
+                    <td>2-3 visits</td>
+                  </tr>
+
+                  <!-- Cosmetic Dentistry -->
+                  <tr class="category-header">
+                    <td colspan="3" class="text-start fs-5">
+                      Cosmetic Dentistry
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Cosmetic</td>
+                    <td>
+                      Teeth Whitening
+                      <div class="treatment-description">
+                        Professional bleaching for a brighter smile
+                      </div>
+                    </td>
+                    <td>60-90 mins</td>
+                  </tr>
+                  <tr>
+                    <td>Cosmetic</td>
+                    <td>
+                      Dental Veneers
+                      <div class="treatment-description">
+                        Thin shells placed on front surface of teeth
+                      </div>
+                    </td>
+                    <td>2-3 visits</td>
+                  </tr>
+                  <tr>
+                    <td>Cosmetic</td>
+                    <td>
+                      Dental Bonding
+                      <div class="treatment-description">
+                        Composite resin applied to improve appearance
+                      </div>
+                    </td>
+                    <td>30-60 mins</td>
+                  </tr>
+
+                  <!-- Surgical Procedures -->
+                  <tr class="category-header">
+                    <td colspan="3" class="text-start fs-5">
+                      Surgical Procedures
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Surgical</td>
+                    <td>
+                      Tooth Extraction (Simple)
+                      <div class="treatment-description">
+                        Removal of a visible tooth
+                      </div>
+                    </td>
+                    <td>20-40 mins</td>
+                  </tr>
+                  <tr>
+                    <td>Surgical</td>
+                    <td>
+                      Wisdom Tooth Extraction
+                      <div class="treatment-description">
+                        Removal of impacted wisdom teeth
+                      </div>
+                    </td>
+                    <td>45-90 mins</td>
+                  </tr>
+                  <tr>
+                    <td>Surgical</td>
+                    <td>
+                      Dental Implants
+                      <div class="treatment-description">
+                        Titanium posts surgically placed in jawbone
+                      </div>
+                    </td>
+                    <td>Multiple visits over 3-6 months</td>
+                  </tr>
+
+                  <!-- Orthodontics -->
+                  <tr class="category-header">
+                    <td colspan="3" class="text-start fs-5">Orthodontics</td>
+                  </tr>
+                  <tr>
+                    <td>Orthodontic</td>
+                    <td>
+                      Traditional Metal Braces
+                      <div class="treatment-description">
+                        Fixed appliances to align teeth and jaws
+                      </div>
+                    </td>
+                    <td>18-24 months treatment</td>
+                  </tr>
+                  <tr>
+                    <td>Orthodontic</td>
+                    <td>
+                      Clear Aligners (Invisalign)
+                      <div class="treatment-description">
+                        Removable clear trays for teeth straightening
+                      </div>
+                    </td>
+                    <td>6-18 months treatment</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DOCTORS SECTION ================= -->
+    <section id="doctors">
+      <div class="container">
+        <div class="row text-center mb-5">
+          <div class="col-12">
+            <h2 class="display-5 fw-bold mb-3">Meet Our Dental Specialists</h2>
+            <p class="text-muted">Our team of certified dental professionals</p>
+            <div class="section-divider"></div>
+          </div>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card doctor-card h-100">
+              <img
+                src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                class="card-img-top doctor-img"
+                alt="Dr. Sarah Johnson - General Dentist"
+              />
+              <div class="card-body text-center">
+                <h4 class="card-title">Dr. Sarah Johnson</h4>
+                <h6 class="text-primary mb-3">General Dentist</h6>
+                <p class="card-text">
+                  With over 15 years of experience, Dr. Johnson specializes in
+                  preventive dentistry and cosmetic treatments.
+                </p>
+                <div class="mt-3">
+                  <span class="badge bg-primary me-2">Cosmetic Dentistry</span>
+                  <span class="badge bg-success">Preventive Care</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card doctor-card h-100">
+              <img
+                src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                class="card-img-top doctor-img"
+                alt="Dr. Michael Chen - Orthodontist"
+              />
+              <div class="card-body text-center">
+                <h4 class="card-title">Dr. Michael Chen</h4>
+                <h6 class="text-primary mb-3">Orthodontist</h6>
+                <p class="card-text">
+                  Specialist in braces and Invisalign treatments. Expert in
+                  correcting bite issues and teeth alignment.
+                </p>
+                <div class="mt-3">
+                  <span class="badge bg-primary me-2">Invisalign</span>
+                  <span class="badge bg-success">Braces</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card doctor-card h-100">
+              <img
+                src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                class="card-img-top doctor-img"
+                alt="Dr. Emily Rodriguez - Oral Surgeon"
+              />
+              <div class="card-body text-center">
+                <h4 class="card-title">Dr. Emily Rodriguez</h4>
+                <h6 class="text-primary mb-3">Oral Surgeon</h6>
+                <p class="card-text">
+                  Expert in dental implants, wisdom teeth removal, and complex
+                  oral surgeries with gentle approach.
+                </p>
+                <div class="mt-3">
+                  <span class="badge bg-primary me-2">Implants</span>
+                  <span class="badge bg-success">Oral Surgery</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card doctor-card h-100">
+              <img
+                src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                class="card-img-top doctor-img"
+                alt="Dr. Emily Rodriguez - Oral Surgeon"
+              />
+              <div class="card-body text-center">
+                <h4 class="card-title">Dr. Emily Rodriguez</h4>
+                <h6 class="text-primary mb-3">Oral Surgeon</h6>
+                <p class="card-text">
+                  Expert in dental implants, wisdom teeth removal, and complex
+                  oral surgeries with gentle approach.
+                </p>
+                <div class="mt-3">
+                  <span class="badge bg-primary me-2">Implants</span>
+                  <span class="badge bg-success">Oral Surgery</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card doctor-card h-100">
+              <img
+                src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                class="card-img-top doctor-img"
+                alt="Dr. Emily Rodriguez - Oral Surgeon"
+              />
+              <div class="card-body text-center">
+                <h4 class="card-title">Dr. Emily Rodriguez</h4>
+                <h6 class="text-primary mb-3">Oral Surgeon</h6>
+                <p class="card-text">
+                  Expert in dental implants, wisdom teeth removal, and complex
+                  oral surgeries with gentle approach.
+                </p>
+                <div class="mt-3">
+                  <span class="badge bg-primary me-2">Implants</span>
+                  <span class="badge bg-success">Oral Surgery</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card doctor-card h-100">
+              <img
+                src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                class="card-img-top doctor-img"
+                alt="Dr. Emily Rodriguez - Oral Surgeon"
+              />
+              <div class="card-body text-center">
+                <h4 class="card-title">Dr. Emily Rodriguez</h4>
+                <h6 class="text-primary mb-3">Oral Surgeon</h6>
+                <p class="card-text">
+                  Expert in dental implants, wisdom teeth removal, and complex
+                  oral surgeries with gentle approach.
+                </p>
+                <div class="mt-3">
+                  <span class="badge bg-primary me-2">Implants</span>
+                  <span class="badge bg-success">Oral Surgery</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT SECTION ================= -->
+    <section id="contactSectionId" class="bg-light">
+      <div class="contactBox" id="contactBoxId">
+        <div class="text-center mb-4">
+          <i class="bi bi-geo-alt contact-icon"></i>
+          <h4>Visit Our Clinic</h4>
+          <p>123 Dental Street<br />Health City, HC 12345</p>
+        </div>
+
+        <div class="text-center mb-4">
+          <i class="bi bi-telephone contact-icon"></i>
+          <h4>Call Us</h4>
+          <p>Phone: (123) 456-7890<br />Emergency: (123) 456-7891</p>
+        </div>
+
+        <div class="text-center mb-4">
+          <i class="bi bi-clock contact-icon"></i>
+          <h4>Opening Hours</h4>
+          <p>
+            Monday - Friday: 8:00 AM - 6:00 PM<br />
+            Saturday: 9:00 AM - 2:00 PM<br />
+            Sunday: Emergency Only
+          </p>
+        </div>
+
+        <div class="text-center">
+          <i class="bi bi-envelope contact-icon"></i>
+          <h4>Email Us</h4>
+          <p>info@dentalcare.com<br />appointments@dentalcare.com</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="bg-dark text-white py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <h4><i class="bi bi-tooth me-2"></i>DentalCare</h4>
+            <p class="text-muted mt-3">
+              Providing professional dental care with compassion and expertise
+              since 2005. Your smile is our priority.
+            </p>
+            <div class="d-flex gap-3 mt-4">
+              <a href="#" class="text-white"
+                ><i class="bi bi-facebook fs-5"></i
+              ></a>
+              <a href="#" class="text-white"
+                ><i class="bi bi-twitter fs-5"></i
+              ></a>
+              <a href="#" class="text-white"
+                ><i class="bi bi-instagram fs-5"></i
+              ></a>
+              <a href="#" class="text-white"
+                ><i class="bi bi-linkedin fs-5"></i
+              ></a>
+            </div>
+          </div>
+
+          <div class="col-md-4 mb-4">
+            <h5>Quick Links</h5>
+            <ul class="list-unstyled mt-3">
+              <li class="mb-2">
+                <a href="#" class="text-muted text-decoration-none">Home</a>
+              </li>
+              <li class="mb-2">
+                <a href="#services" class="text-muted text-decoration-none"
+                  >Services</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#doctors" class="text-muted text-decoration-none"
+                  >Our Doctors</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#contact" class="text-muted text-decoration-none"
+                  >Contact Us</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-muted text-decoration-none"
+                  >Privacy Policy</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-md-4 mb-4">
+            <h5>Emergency Contact</h5>
+            <div class="mt-3">
+              <p>
+                <i class="bi bi-telephone me-2"></i>Emergency: (123) 456-7891
+              </p>
+              <p><i class="bi bi-clock me-2"></i>24/7 Emergency Service</p>
+              <p>
+                <i class="bi bi-geo-alt me-2"></i>123 Dental Street, Health City
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <hr class="text-muted my-4" />
+
+        <div class="row">
+          <div class="col-md-12 text-center">
+            <p class="text-muted mb-0">
+              &copy; 2024 DentalCare. All rights reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/Assest/lib/jquery-3.7.1.min.js"></script>
+
+    <script>
+      // Navbar scroll effect
+      window.addEventListener("scroll", function () {
+        const navbar = document.querySelector(".navbar");
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute("href");
+          if (targetId === "#") return;
+
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+
+      // Auto carousel pause on hover
+      const carousel = document.getElementById("heroCarousel");
+      if (carousel) {
+        carousel.addEventListener("mouseenter", () => {
+          carousel.setAttribute("data-bs-interval", "false");
+        });
+
+        carousel.addEventListener("mouseleave", () => {
+          carousel.setAttribute("data-bs-interval", "4000");
+        });
+      }
+
+      // Appointment form submission
+      document
+        .getElementById("appointmentForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          // Get form values
+          const name = document.getElementById("name").value;
+          const phone = document.getElementById("phone").value;
+          const service = document.getElementById("service").value;
+
+          // Show success message
+          alert(
+            `Thank you ${name}! Your appointment request has been submitted. We will call you at ${phone} to confirm your ${service} appointment.`,
+          );
+
+          // Reset form
+          this.reset();
+        });
+
+      // Set minimum date for appointment to today
+      const today = new Date().toISOString().split("T")[0];
+      document.getElementById("date").setAttribute("min", today);
+
+      // Initialize tooltips
+      const tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]'),
+      );
+      const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+      // ==========================
+      // const bookButten = document.getElementById("bookNowBtn");
+
+      // $("#bookNowBtn").on("click", () => {
+      //   window.location.href = "/pages/modalexsai.html";
+      // });
+
+      // ==============================
+    </script>
+  </body>
+</html>

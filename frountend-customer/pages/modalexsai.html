@@ -1,0 +1,670 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Appointment System</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #000;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+      #calendar {
+        position: absolute;
+        width: 100%;
+        height: 440px;
+        margin: auto;
+        margin-top: 5vh;
+      }
+      /* ----------------------------- */
+      .box3.visible {
+        display: block;
+        display: flex;
+      }
+      /* ---------------------------------- */
+
+      .container-box {
+        width: 400px;
+        height: 400px;
+        background: linear-gradient(135deg, #ffbf1c 0%, #ff9900 100%);
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 10px 30px rgba(255, 191, 28, 0.3);
+        transition: transform 0.3s ease;
+      }
+
+      .container-box:hover {
+        transform: translateY(-5px);
+      }
+
+      .appointment-button {
+        padding: 15px 40px;
+        font-size: 1.2rem;
+        font-weight: 600;
+        background-color: #000;
+        color: #ffbf1c;
+        border: 3px solid #000;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+      }
+
+      .appointment-button:hover {
+        background-color: #ffbf1c;
+        color: #000;
+        transform: scale(1.05);
+      }
+
+      .modal-content {
+        background-color: #000;
+        color: #fff;
+        border: 2px solid #ffbf1c;
+        border-radius: 15px;
+      }
+
+      .modal-header {
+        border-bottom: 1px solid #ffbf1c;
+        background-color: #111;
+      }
+
+      .modal-title {
+        color: #ffbf1c;
+        font-weight: bold;
+      }
+
+      .btn-close {
+        filter: invert(1) brightness(2);
+      }
+
+      .main-container {
+        position: relative;
+        background: linear-gradient(135deg, #001a5c 0%, #000814 100%);
+        min-height: 70vh;
+        border-radius: 10px;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      .search-bar-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 10vh;
+        background: rgba(255, 191, 28, 0.1);
+        backdrop-filter: blur(10px);
+        border-bottom: 2px solid #ffbf1c;
+        padding: 20px;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      #search-bar {
+        width: 60%;
+        max-width: 500px;
+        height: 50px;
+        border-radius: 25px;
+        border: 2px solid #ffbf1c;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        padding: 0 20px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      #search-bar:focus {
+        outline: none;
+        box-shadow: 0 0 15px rgba(255, 191, 28, 0.5);
+        width: 70%;
+      }
+
+      #search-bar::placeholder {
+        color: #aaa;
+      }
+
+      .content-area {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 20px;
+        gap: 20px;
+        height: calc(90vh - 60px);
+        overflow-y: auto;
+      }
+
+      .doctor-table-box,
+      .doctor-details-box {
+        flex: 1;
+        /* -------------------------- */
+        min-width: 300px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        padding: 20px;
+        border: 1px solid rgba(255, 191, 28, 0.2);
+      }
+
+      .doctor-table-box {
+        /* overflow-y: auto; */
+      }
+      /* ================================ */
+
+      .text-muted {
+        background-color: #ff990046 !important;
+      }
+      .doctor-details-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5vh;
+        /* background-color: #ff9900; */
+        overflow-y: auto;
+      }
+
+      .doctor-details-box .box2 {
+        background-color: #ff990000;
+        width: 100%;
+        height: 5vh;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      #confirmdoctorButten {
+        width: 200px;
+        height: 40px;
+        border-radius: 10px;
+        background-color: rgb(0, 197, 33);
+      }
+
+      .box3 {
+        width: 100%;
+        height: 500px;
+        background-color: #ff990015;
+        border-radius: 10px;
+        display: none;
+        position: relative;
+      }
+
+      #doctor-details {
+        background-color: #001a5c00;
+      }
+      /* ============================= */
+      .doctor-card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-left: 4px solid #ffbf1c;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .doctor-card:hover {
+        background: rgba(255, 191, 28, 0.1);
+        transform: translateX(5px);
+      }
+
+      .doctor-card.active {
+        background: rgba(255, 191, 28, 0.2);
+        border-left: 4px solid #fff;
+      }
+
+      .doctor-name {
+        color: #ffbf1c;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .doctor-specialty {
+        color: #aaa;
+        font-size: 0.9rem;
+      }
+
+      .doctor-detail-title {
+        color: #ffbf1c;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #ffbf1c;
+        padding-bottom: 10px;
+      }
+
+      .doctor-detail-item {
+        margin-bottom: 15px;
+        color: #fff;
+      }
+
+      .detail-label {
+        color: #aaa;
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      .modal-footer {
+        border-top: 1px solid #ffbf1c;
+        background-color: #111;
+      }
+
+      .btn-primary {
+        background-color: #ffbf1c;
+        border-color: #ffbf1c;
+        color: #000;
+        font-weight: bold;
+      }
+
+      .btn-primary:hover {
+        background-color: #ff9900;
+        border-color: #ff9900;
+      }
+
+      .btn-secondary {
+        background-color: #333;
+        border-color: #555;
+      }
+
+      .btn-secondary:hover {
+        background-color: #444;
+        border-color: #666;
+      }
+
+      /* Scrollbar Styling */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #ffbf1c;
+        border-radius: 4px;
+      }
+
+      @media (max-width: 768px) {
+        .content-area {
+          flex-direction: column;
+        }
+
+        .doctor-table-box,
+        .doctor-details-box {
+          min-width: 100%;
+        }
+
+        #search-bar {
+          width: 90%;
+        }
+
+        #search-bar:focus {
+          width: 95%;
+        }
+
+        .container-box {
+          width: 90%;
+          height: 300px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-box">
+      <button id="appointment-btn" class="appointment-button">
+        <i class="bi bi-calendar-plus me-2"></i>Book Appointment
+      </button>
+    </div>
+
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="appointmentModal"
+      tabindex="-1"
+      aria-labelledby="appointmentModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="appointmentModalLabel">
+              <i class="bi bi-calendar-check me-2"></i>Book Your Appointment
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body p-0">
+            <div class="main-container">
+              <div class="search-bar-box">
+                <div class="input-group" style="max-width: 500px">
+                  <span
+                    class="input-group-text bg-dark border-warning text-warning"
+                  >
+                    <i class="bi bi-search"></i>
+                  </span>
+                  <input
+                    id="search-bar"
+                    type="text"
+                    class="form-control"
+                    placeholder="Search doctors by name, specialty, or department..."
+                  />
+                </div>
+              </div>
+              <div class="content-area">
+                <div class="doctor-table-box">
+                  <h4 class="text-warning mb-4">Available Doctors</h4>
+                  <div id="doctors-list">
+                    <!-- Doctors will be dynamically added here -->
+                  </div>
+                </div>
+                <div class="doctor-details-box">
+                  <div class="box1">
+                    <h4 class="doctor-detail-title">Doctor Details</h4>
+                    <div style="color: #aaa" id="doctor-details"></div>
+                  </div>
+                  <div class="box2">
+                    <button id="confirmdoctorButten">Confirm</button>
+                  </div>
+
+                  <div id="box3Id" class="box3">
+                    <h2>Appointment Calendar</h2>
+                    <div id="calendar"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              <i class="bi bi-x-circle me-1"></i>Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="confirm-appointment"
+            >
+              <i class="bi bi-check-circle me-1"></i>Confirm Appointment
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        // Sample doctors data
+        const doctors = [
+          {
+            id: 1,
+            name: "Dr. Sarah Johnson",
+            specialty: "Cardiologist",
+            experience: "15 years",
+            rating: "4.9",
+            availability: "Mon-Fri, 9AM-5PM",
+            description:
+              "Specialized in heart diseases and cardiovascular health.",
+          },
+          {
+            id: 2,
+            name: "Dr. Michael Chen",
+            specialty: "Neurologist",
+            experience: "12 years",
+            rating: "4.8",
+            availability: "Tue-Sat, 10AM-6PM",
+            description: "Expert in neurological disorders and treatment.",
+          },
+          {
+            id: 3,
+            name: "Dr. Emily Rodriguez",
+            specialty: "Pediatrician",
+            experience: "8 years",
+            rating: "4.7",
+            availability: "Mon-Fri, 8AM-4PM",
+            description: "Specialized in children's health and development.",
+          },
+          {
+            id: 4,
+            name: "Dr. James Wilson",
+            specialty: "Orthopedic Surgeon",
+            experience: "20 years",
+            rating: "4.9",
+            availability: "Mon-Thu, 9AM-5PM",
+            description: "Expert in bone and joint surgeries.",
+          },
+          {
+            id: 5,
+            name: "Dr. Lisa Park",
+            specialty: "Dermatologist",
+            experience: "10 years",
+            rating: "4.6",
+            availability: "Wed-Sun, 11AM-7PM",
+            description: "Specialized in skin care and treatments.",
+          },
+          {
+            id: 6,
+            name: "Dr. Jam Wilson",
+            specialty: "Orthopedic Surgeon",
+            experience: "20 years",
+            rating: "4.9",
+            availability: "Mon-Thu, 9AM-5PM",
+            description: "Expert in bone and joint surgeries.",
+          },
+          {
+            id: 7,
+            name: "Dr. Lis Park",
+            specialty: "Dermatologist",
+            experience: "10 years",
+            rating: "4.6",
+            availability: "Wed-Sun, 11AM-7PM",
+            description: "Specialized in skin care and treatments.",
+          },
+        ];
+
+        let selectedDoctor = null;
+
+        // Function to render doctors list
+        function renderDoctorsList(filter = "") {
+          const filteredDoctors = doctors.filter(
+            (doctor) =>
+              doctor.name.toLowerCase().includes(filter.toLowerCase()) ||
+              doctor.specialty.toLowerCase().includes(filter.toLowerCase()),
+          );
+
+          const doctorsList = $("#doctors-list");
+          doctorsList.empty();
+
+          if (filteredDoctors.length === 0) {
+            doctorsList.html('<p class="text-muted">No doctors found</p>');
+            return;
+          }
+
+          filteredDoctors.forEach((doctor) => {
+            const isActive =
+              selectedDoctor && selectedDoctor.id === doctor.id ? "active" : "";
+            const doctorCard = `
+                          <div class="doctor-card ${isActive}" data-id="${doctor.id}">
+                            <div class="doctor-name">${doctor.name}</div>
+                            <div class="doctor-specialty">${doctor.specialty}</div>
+                            <div class="doctor-specialty">Experience: ${doctor.exexperience}</div>
+                            <div class="doctor-specialty">Rating: ${doctor.rating} ⭐</div>
+                          </div>
+                        `;
+            doctorsList.append(doctorCard);
+          });
+
+          // Add click event to doctor cards
+          $(".doctor-card").on("click", function () {
+            const doctorId = parseInt($(this).data("id"));
+            selectedDoctor = doctors.find((d) => d.id === doctorId);
+
+            // Update active state
+            $(".doctor-card").removeClass("active");
+            $(this).addClass("active");
+
+            // Render doctor details
+            renderDoctorDetails(selectedDoctor);
+          });
+        }
+
+        // Function to render doctor details
+        function renderDoctorDetails(doctor) {
+          const detailsContainer = $("#doctor-details");
+
+          // detailsContainer.html(
+          //   '<p style="color: #ff9900" class="text-muted"> first of all Select a doctor to view details</p>',
+          // );
+          if (!doctor) {
+            return;
+          }
+
+          const detailsHtml = `
+                        <div class="doctor-detail-item">
+                          <span class="detail-label">Name:</span>
+                          <span style="color:#ff9900; font-size: 30px; font-weight: 700;">${doctor.name}</span>
+                        </div>
+                        <div class="doctor-detail-item">
+                          <span class="detail-label">Specialty:</span>
+                          <span>${doctor.specialty}</span>
+                        </div>
+                        <div class="doctor-detail-item">
+                          <span class="detail-label">Experience:</span>
+                          <span>${doctor.experience}</span>
+                        </div>
+                        <div class="doctor-detail-item">
+                          <span class="detail-label">Rating:</span>
+                          <span>${doctor.rating} ⭐</span>
+                        </div>
+                        <div class="doctor-detail-item">
+                          <span class="detail-label">Availability:</span>
+                          <span>${doctor.availability}</span>
+                        </div>
+                        <div class="doctor-detail-item">
+                          <span class="detail-label">About:</span>
+                          <span>${doctor.description}</span>
+                        </div>
+                      `;
+
+          detailsContainer.html(detailsHtml);
+        }
+
+        // Initialize modal and event listeners
+        const appointmentModal = new bootstrap.Modal(
+          document.getElementById("appointmentModal"),
+        );
+
+        $("#appointment-btn").on("click", () => {
+          renderDoctorsList();
+          appointmentModal.show();
+        });
+
+        // Search functionality
+        $("#search-bar").on("input", function () {
+          const searchTerm = $(this).val();
+          renderDoctorsList(searchTerm);
+        });
+
+        // Confirm appointment button
+        $("#confirm-appointment").on("click", function () {
+          if (!selectedDoctor) {
+            alert("Please select a doctor first!");
+            return;
+          }
+
+          alert(
+            `Appointment booked with ${selectedDoctor.name}! We'll contact you shortly.`,
+          );
+          appointmentModal.hide();
+        });
+
+        // Initialize with empty state
+        renderDoctorDetails(null);
+      });
+
+      $("#confirmdoctorButten").on("click", () => {
+        const html = $("#doctor-details").html().trim();
+
+        if (html === "") {
+          alert(" ❌ please Select relevent Doctorfor your Appointment !");
+          console.log(html);
+        } else {
+          const box3id = $("box3Id");
+          $("#box3Id").addClass("visible");
+        }
+      });
+
+      //   ========================calander==================
+
+      document.addEventListener("DOMContentLoaded", function () {
+        let calendarEl = document.getElementById("calendar");
+
+        let calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: "timeGridWeek", //dayGridMonth
+          headerToolbar: {
+            left: "prev,next today",
+            center: "title",
+            right: "dayGridMonth,timeGridWeek,timeGridDay",
+          },
+          dateClick: function (info) {
+            // info.dateStr = YYYY-MM-DD
+            alert("Date clicked: " + info.dateStr);
+
+            // example: redirect
+            // window.location.href = "booking.html?date=" + info.dateStr;
+          },
+          events: [
+            {
+              title: "Dental Appointment",
+              start: "2026-02-10",
+            },
+            {
+              title: "Checkup",
+              start: "2026-02-15T10:00",
+            },
+          ],
+        });
+        calendar.render();
+      });
+      //   =================================
+
+      //   let calendarEl = document.getElementById("calendar");
+
+      //   let calendar = new FullCalendar.Calendar(calendarEl, {
+      //     initialView: "dayGridMonth",
+
+      //     dateClick: function (info) {
+      //       // info.dateStr = YYYY-MM-DD
+      //       alert("Date clicked: " + info.dateStr);
+
+      //       // example: redirect
+      //       // window.location.href = "booking.html?date=" + info.dateStr;
+      //     },
+      //   });
+    </script>
+  </body>
+</html>
