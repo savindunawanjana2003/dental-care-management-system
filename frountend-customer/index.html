@@ -22,6 +22,11 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
     />
 
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
     <style>
       /* Full screen carousel */
       .carousel,
@@ -43,7 +48,9 @@
 
       /* Navbar */
       .navbar {
-        background: rgba(0, 0, 0, 0.7);
+        /* background: rgba(0, 0, 0, 0.7); */
+        background: linear-gradient(135deg, #1c2d81 0%, #008b2a 100%);
+
         border-radius: 10px;
         transition: all 0.3s ease;
         padding: 15px 0;
@@ -66,7 +73,9 @@
 
       /* Buttons */
       .btn-primary {
-        background-color: #0d6efd;
+        /* background-color: #0d6efd; */
+        background: linear-gradient(135deg, #1c2d81 0%, #008b2a 100%);
+
         border-color: #0d6efd;
         padding: 12px 30px;
         font-weight: 600;
@@ -98,6 +107,25 @@
         line-height: 1.6;
       }
 
+      #box {
+        display: flex;
+        gap: 20px;
+        margin-left: 20px;
+      }
+
+      #sinig,
+      #sing-Up {
+        padding: 10px 20px;
+        background-color: #1e3799;
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      i {
+        margin-right: 8px;
+      }
+
       /* Appointment CTA */
       .appointment-cta {
         position: fixed;
@@ -107,7 +135,9 @@
       }
 
       .btn-appointment {
-        background-color: #198754;
+        /* background-color: #198754; */
+        background: linear-gradient(135deg, #1c2d81 0%, #008b2a 100%);
+
         color: white;
         border-radius: 50px;
         padding: 15px 25px;
@@ -130,7 +160,9 @@
 
       .contactBox {
         border-radius: 10px;
-        background-color: #1a6eeb;
+        /* background-color: #1a6eeb; */
+        background: linear-gradient(135deg, #1c2d81 0%, #008b2a 100%);
+
         gap: 40px;
         width: 25vw;
       }
@@ -298,6 +330,14 @@
           padding: 12px 20px;
           font-size: 0.9em;
         }
+
+        #box {
+          margin-top: 10px;
+        }
+
+        .login-card {
+          margin-left: 22vw;
+        }
       }
 
       @media (max-width: 576px) {
@@ -307,10 +347,109 @@
           height: 80vh;
         }
       }
+
+      @media (max-width: 1567px) {
+        .login-card {
+          margin-top: 150px;
+          margin-left: 70vw;
+        }
+      }
+
+      header {
+        position: relative;
+      }
+
+      /* =======login cart style============= */
+
+      .login-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 450px;
+        overflow: hidden;
+        position: absolute;
+        z-index: 1000;
+        margin-top: 150px;
+        margin-left: 70vw;
+      }
+
+      .login-header {
+        background: linear-gradient(135deg, #1c2d81 0%, #008b2a 100%);
+        color: white;
+        text-align: center;
+        padding: 30px;
+      }
+
+      .login-header h2 {
+        margin: 0;
+        font-weight: 600;
+      }
+
+      .login-body {
+        padding: 40px;
+        background: white;
+      }
+
+      .input-group-text {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+      }
+
+      .form-control {
+        padding: 12px;
+        border-radius: 8px;
+      }
+
+      .btn-login {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        padding: 12px;
+        color: white;
+        font-weight: 600;
+        width: 100%;
+        border-radius: 8px;
+        transition: 0.3s;
+      }
+
+      .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+      }
+
+      .register-link {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .register-link a {
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      /* =========================== */
+
+      #loader {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background: #000000b3;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
     </style>
   </head>
 
   <body>
+    <div id="loader">
+      <div
+        class="spinner-border text-light"
+        style="width: 3rem; height: 3rem"
+      ></div>
+    </div>
     <!-- ================= NAVBAR ================= -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
       <div class="container">
@@ -349,13 +488,82 @@
                 <i class="bi bi-telephone me-2"></i>Call Now
               </a>
             </li>
+
+            <div class="box">
+              <div class="box2"></div>
+            </div>
+            <div id="box">
+              <div id="sinig">
+                <i class="fa-solid fa-right-to-bracket"></i> Sign In
+              </div>
+
+              <div id="sing-Up">
+                <i class="fa-solid fa-user-plus"></i> Sign Up
+              </div>
+            </div>
           </ul>
         </div>
       </div>
     </nav>
-
     <!-- ================= CAROUSEL ================= -->
     <header>
+      <!-- =====login====== -->
+
+      <div class="login-card">
+        <div class="login-header">
+          <i class="bi bi-person-circle" style="font-size: 45px"></i>
+          <h2>Customer Login</h2>
+          <p>Welcome back</p>
+        </div>
+
+        <div class="login-body">
+          <form id="loginForm">
+            <div class="mb-3">
+              <label class="form-label">Email Address</label>
+              <div class="input-group">
+                <span class="input-group-text"
+                  ><i class="bi bi-envelope"></i
+                ></span>
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="Enter email"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <div class="input-group">
+                <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Enter password"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" />
+              <label class="form-check-label">Remember me</label>
+            </div>
+
+            <button class="btn btn-login">
+              <i class="bi bi-box-arrow-in-right"></i> Login
+            </button>
+
+            <div class="register-link">
+              Don't have an account?
+              <a href="register.html">Register here</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- ======== -->
       <div
         id="heroCarousel"
         class="carousel slide carousel-fade"
@@ -1052,6 +1260,22 @@
         }
       });
 
+      $("#sing-Up").click(function () {
+        $("#loader").css("display", "flex");
+
+        setTimeout(function () {
+          window.location.href = "pages/singup.html";
+        }, 1200);
+      });
+
+      $("#sinig").click(function () {
+        $("#loader").css("display", "flex");
+
+        setTimeout(function () {
+          window.location.href = "pages/signin.html";
+        }, 1200);
+      });
+
       // Smooth scroll for anchor links
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
@@ -1121,6 +1345,5 @@
 
       // ==============================
     </script>
-    <!-- sss -->
   </body>
 </html>
