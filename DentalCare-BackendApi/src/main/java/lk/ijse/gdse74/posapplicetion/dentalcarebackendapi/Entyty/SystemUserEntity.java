@@ -27,6 +27,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+//builder is a interface
 @Table(name = "system_users")
 public class SystemUserEntity {
     @Id

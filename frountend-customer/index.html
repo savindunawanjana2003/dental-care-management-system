@@ -46,21 +46,47 @@
         background: rgba(0, 0, 0, 0.5);
       }
 
-      /* Navbar */
-      .navbar {
-        /* background: rgba(0, 0, 0, 0.7); */
-        background: linear-gradient(135deg, #1c2d81 0%, #008b2a 100%);
+      /* Navbar Styles */
+.navbar {
+  background: linear-gradient(135deg, #1c2d81 0%, #008b2a 100%);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  padding: 15px 0;
 
-        border-radius: 10px;
-        transition: all 0.3s ease;
-        padding: 15px 0;
-      }
+  position: relative;
+  overflow: hidden;
+}
 
-      .navbar.scrolled {
-        background: rgba(0, 0, 0, 0.95);
-        padding: 10px 0;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-      }
+/* Shimmer effect */
+.navbar::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255,255,255,0.1);
+
+  transform: rotate(45deg);
+  animation: navbarShimmer 4s infinite;
+}
+
+/* Animation */
+@keyframes navbarShimmer {
+  0% {
+    transform: translateX(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(45deg);
+  }
+}
+
+/* navbar content above shimmer */
+.navbar * {
+  position: relative;
+  z-index: 1;
+}
+
 
       /* Carousel caption */
       .carousel-caption {
@@ -801,7 +827,7 @@
           </div>
 
           <!-- Slide 2 -->
-          <div class="carousel-item">
+          <!-- <div class="carousel-item">
             <img
               src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
               class="d-block w-100"
@@ -827,10 +853,10 @@
                 </a>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <!-- Slide 3 -->
-          <div class="carousel-item">
+          <!-- <div class="carousel-item">
             <img
               src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80"
               class="d-block w-100"
@@ -857,7 +883,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <!-- Carousel Controls -->
         <button

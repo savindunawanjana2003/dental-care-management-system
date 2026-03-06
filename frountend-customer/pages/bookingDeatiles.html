@@ -24,47 +24,48 @@
     />
 
     <style>
-      /* Navbar Styles */
-      .navbar {
-        background: linear-gradient(135deg, #1c2d81 0%, #008b2a 100%);
-        border-radius: 10px;
-        transition: all 0.3s ease;
-        padding: 15px 0;
-      }
+   
+/* Navbar Styles */
+.navbar {
+  background: linear-gradient(135deg, #1c2d81 0%, #008b2a 100%);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  padding: 15px 0;
 
-      .navbar.scrolled {
-        background: rgba(0, 0, 0, 0.95);
-        padding: 10px 0;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-      }
+  /* position: relative; */
+  /* overflow: hidden; */
+}
 
-      .navbar-brand i {
-        margin-right: 8px;
-      }
+/* Shimmer effect */
+.navbar::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255,255,255,0.1);
 
-      .navbar-nav .nav-link {
-        font-weight: 500;
-        margin-right: 10px;
-        transition: 0.3s;
-        color: white !important;
-      }
+  transform: rotate(45deg);
+  animation: navbarShimmer 4s infinite;
+}
 
-      .navbar-nav .nav-link:hover {
-        color: #ffd700 !important;
-      }
+/* Animation */
+@keyframes navbarShimmer {
+  0% {
+    transform: translateX(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(45deg);
+  }
+}
 
-      .navbar .btn-outline-light {
-        border-radius: 30px;
-        padding: 8px 18px;
-        font-weight: 500;
-        transition: 0.3s;
-      }
+/* navbar content above shimmer */
+.navbar * {
+  position: relative;
+  z-index: 1;
+}
 
-      .navbar .btn-outline-light:hover {
-        transform: translateY(-3px);
-        background-color: white;
-        color: #1c2d81;
-      }
 
       /* Sign In / Sign Up container */
       #box {
@@ -409,6 +410,13 @@
           font-size: 20px;
         }
       }
+
+      /* ================= */
+
+.paymet{
+  
+}
+
     </style>
   </head>
   <body>
@@ -756,6 +764,10 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="paymet">
+      asdasd
     </div>
 
 

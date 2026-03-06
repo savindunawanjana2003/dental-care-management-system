@@ -16,14 +16,15 @@ import org.springframework.web.bind.annotation.*;
  * Project: DentalCare-BackendApi
  * --------------------------------------------
  */
-
 @RestController
 @RequestMapping("api/v1/dentalcare/auth")
 @CrossOrigin
 @RequiredArgsConstructor
+// meka
+//CrossOrigin
+//back ened eka 323 frunt end eken eka wena ekai ethakota port 2k etha
 public class AuthController {
     private final AuthService authService;
-
     @PostMapping("/register")
     public ResponseEntity<APIResponse<String>> register(@RequestBody SystemUserDto systemUserDto) {
         System.out.println("=====================================");

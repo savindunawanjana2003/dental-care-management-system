@@ -31,7 +31,6 @@ public class AuthService implements Authservice {
     private final PasswordEncoder passwordEncoder;
     private final Jwrutil Jwrutil;
 
-
     @Override
     public String saveCustomer(SystemUserDto systemUserDto) {
 
@@ -39,7 +38,6 @@ public class AuthService implements Authservice {
         java.util.Optional<SystemUserEntity> releventUser2 = userRepository.findByNicNumber(systemUserDto.getNicNumber());
         java.util.Optional<SystemUserEntity> releventUser3 = userRepository.findByusername(systemUserDto.getUsername());
         java.util.Optional<SystemUserEntity> releventUser4 = userRepository.findByphoneNumber(systemUserDto.getPhoneNumber());
-
 
         if (releventUser1.isPresent()) {
             throw new UserAlredyExistException("This Email already Exist try with Difarent Email");
@@ -91,5 +89,4 @@ public class AuthService implements Authservice {
         System.out.println("------------------");
         return token;
     }
-
 }
