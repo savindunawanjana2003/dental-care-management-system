@@ -1,0 +1,825 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DentalCare - Appointment Dashboard</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      /* Navbar Styles */
+      .navbar {
+        background: linear-gradient(135deg, #1c2d81 0%, #008b2a 100%);
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        padding: 15px 0;
+      }
+
+      .navbar.scrolled {
+        background: rgba(0, 0, 0, 0.95);
+        padding: 10px 0;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar-brand i {
+        margin-right: 8px;
+      }
+
+      .navbar-nav .nav-link {
+        font-weight: 500;
+        margin-right: 10px;
+        transition: 0.3s;
+        color: white !important;
+      }
+
+      .navbar-nav .nav-link:hover {
+        color: #ffd700 !important;
+      }
+
+      .navbar .btn-outline-light {
+        border-radius: 30px;
+        padding: 8px 18px;
+        font-weight: 500;
+        transition: 0.3s;
+      }
+
+      .navbar .btn-outline-light:hover {
+        transform: translateY(-3px);
+        background-color: white;
+        color: #1c2d81;
+      }
+
+      /* Sign In / Sign Up container */
+      #box {
+        display: flex;
+        gap: 20px;
+        margin-left: 20px;
+      }
+
+      #sinig,
+      #sing-Up {
+        padding: 10px 20px;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      #sinig:hover,
+      #sing-Up:hover {
+        transform: translateY(-2px);
+        background-color: #ffd700;
+        color: #1c2d81;
+        border-color: #ffd700;
+      }
+
+      #box i {
+        margin-right: 8px;
+      }
+
+      @media (max-width: 768px) {
+        #box {
+          margin-top: 10px;
+          justify-content: center;
+        }
+
+        #sinig,
+        #sing-Up {
+          padding: 8px 16px;
+          font-size: 14px;
+        }
+      }
+
+      /* Doctor Section Styles */
+      .doctor-section {
+        margin-top: 100px;
+        padding: 20px;
+      }
+
+      .doctor-header {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .doctor-name {
+        color: #1c2d81;
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .doctor-specialty {
+        color: #008b2a;
+        font-size: 18px;
+        font-weight: 500;
+      }
+
+      .doctor-stats {
+        display: flex;
+        gap: 30px;
+        margin-top: 20px;
+      }
+
+      .stat-item {
+        text-align: center;
+      }
+
+      .stat-value {
+        font-size: 24px;
+        font-weight: 700;
+        color: #1c2d81;
+      }
+
+      .stat-label {
+        color: #6c757d;
+        font-size: 14px;
+      }
+
+      /* Appointment Box Styles */
+      .dayApoinment-deatiles-box {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        min-height: 500px;
+        background: linear-gradient(135deg, #f8f9fa, #ffffff);
+        border-radius: 15px;
+        padding: 20px;
+        margin: 0 auto;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        border: 1px solid #e0e0e0;
+        transition: all 0.3s ease;
+      }
+
+      .dayApoinment-deatiles-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(28, 45, 129, 0.2);
+        border-color: #1c2d81;
+      }
+
+      .box-header {
+        background: linear-gradient(135deg, #1c2d81 0%, #008b2a 100%);
+        color: white;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .box-header::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: rgba(255, 255, 255, 0.1);
+        transform: rotate(45deg);
+        animation: shimmer 3s infinite;
+      }
+
+      @keyframes shimmer {
+        0% {
+          transform: translateX(-100%) rotate(45deg);
+        }
+        100% {
+          transform: translateX(100%) rotate(45deg);
+        }
+      }
+
+      .box-header h3 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 600;
+        position: relative;
+        z-index: 1;
+      }
+
+      .box-header i {
+        font-size: 24px;
+        margin-bottom: 5px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .date-display {
+        background: white;
+        color: #1c2d81;
+        padding: 8px;
+        border-radius: 8px;
+        margin: 10px 0;
+        font-weight: 500;
+        text-align: center;
+      }
+
+      .appointment-count {
+        text-align: center;
+        margin-bottom: 20px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        border-left: 4px solid #008b2a;
+      }
+
+      .count-number {
+        font-size: 36px;
+        font-weight: 700;
+        color: #1c2d81;
+      }
+
+      .count-label {
+        color: #6c757d;
+        font-size: 14px;
+      }
+
+      .view-details-btn {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, #1c2d81 0%, #008b2a 100%);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: 0.3s;
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        cursor: pointer;
+      }
+
+      .view-details-btn:hover {
+        transform: scale(1.02);
+        box-shadow: 0 5px 20px rgba(28, 45, 129, 0.4);
+      }
+
+      .view-details-btn i {
+        transition: transform 0.3s;
+      }
+
+      .view-details-btn:hover i {
+        transform: translateX(5px);
+      }
+
+      /* Modal Styles */
+      .modal-header {
+        background: linear-gradient(135deg, #1c2d81 0%, #008b2a 100%);
+        color: white;
+        border-bottom: none;
+      }
+
+      .modal-title {
+        font-weight: 600;
+      }
+
+      .modal-title i {
+        margin-right: 10px;
+      }
+
+      .modal-header .btn-close {
+        filter: brightness(0) invert(1);
+      }
+
+      .modal-body {
+        padding: 25px;
+      }
+
+      .appointment-item {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 15px;
+        margin-bottom: 15px;
+        border: 1px solid #e9ecef;
+        transition: all 0.3s;
+      }
+
+      .appointment-item:hover {
+        background: white;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        border-color: #1c2d81;
+        transform: translateX(5px);
+      }
+
+      .appointment-time {
+        background: #1c2d81;
+        color: white;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 500;
+        display: inline-block;
+        margin-bottom: 10px;
+      }
+
+      .patient-name {
+        font-size: 18px;
+        font-weight: 600;
+        color: #212529;
+        margin-bottom: 5px;
+      }
+
+      .patient-details {
+        color: #6c757d;
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+
+      .patient-details i {
+        margin-right: 8px;
+        color: #008b2a;
+        width: 20px;
+      }
+
+      .treatment-type {
+        background: #e7f3ff;
+        color: #1c2d81;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 500;
+        display: inline-block;
+        margin-top: 8px;
+      }
+
+      .badge-new {
+        background: #28a745;
+        color: white;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        margin-left: 10px;
+      }
+
+      .modal-footer {
+        background: #f8f9fa;
+        border-top: 2px solid #e9ecef;
+        padding: 15px 25px;
+      }
+
+      .total-count {
+        font-weight: 600;
+        color: #1c2d81;
+        font-size: 18px;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        .dayApoinment-deatiles-box {
+          max-width: 100%;
+          margin: 0 10px;
+        }
+
+        .doctor-header {
+          padding: 20px;
+        }
+
+        .doctor-name {
+          font-size: 24px;
+        }
+
+        .doctor-stats {
+          gap: 15px;
+        }
+
+        .stat-value {
+          font-size: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand fw-bold fs-3" href="#">
+          <i class="bi bi-tooth me-2"></i>DentalCare
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#nav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="nav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+
+            <li class="nav-item ms-lg-2">
+              <a
+                class="btn btn-outline-light mt-2 mt-lg-0"
+                href="tel:+1234567890"
+              >
+                <i class="bi bi-telephone me-2"></i>Call Now
+              </a>
+            </li>
+
+            <div id="box">
+              <div id="sinig">
+                <i class="fa-solid fa-right-to-bracket"></i> Sign In
+              </div>
+              <div id="sing-Up">
+                <i class="fa-solid fa-user-plus"></i> Sign Up
+              </div>
+            </div>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="doctor-section">
+      <div class="container">
+        <!-- Doctor Header -->
+        <div class="doctor-header">
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <h1 class="doctor-name">
+                <i class="bi bi-person-badge me-3"></i>Dr. Amarasekara
+              </h1>
+              <p class="doctor-specialty">
+                <i class="bi bi-tools me-2"></i>Senior Dental Surgeon | BDS, MD
+                (Oral Surgery)
+              </p>
+              <div class="doctor-stats">
+                <div class="stat-item">
+                  <div class="stat-value">15+</div>
+                  <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-value">5,000+</div>
+                  <div class="stat-label">Happy Patients</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-value">⭐ 4.8</div>
+                  <div class="stat-label">Patient Rating</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 text-md-end">
+              <i
+                class="bi bi-person-circle"
+                style="font-size: 80px; color: #1c2d81"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Appointment Box -->
+        <div class="row justify-content-center">
+          <div class="col-md-6 col-lg-5">
+            <div class="dayApoinment-deatiles-box">
+              <div class="box-header">
+                <i class="bi bi-calendar-check"></i>
+                <h3>Today's Appointments</h3>
+              </div>
+
+              <div class="date-display">
+                <i class="bi bi-calendar3 me-2"></i>
+                <span id="currentDate"></span>
+              </div>
+
+              <div class="appointment-count">
+                <div class="count-number" id="todayCount">08</div>
+                <div class="count-label">Total Appointments Today</div>
+              </div>
+
+              <div class="row g-2 mb-3">
+                <div class="col-4">
+                  <div class="text-center p-2 bg-light rounded">
+                    <small class="d-block text-muted">Completed</small>
+                    <strong class="text-success">03</strong>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="text-center p-2 bg-light rounded">
+                    <small class="d-block text-muted">Pending</small>
+                    <strong class="text-warning">04</strong>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="text-center p-2 bg-light rounded">
+                    <small class="d-block text-muted">Total</small>
+                    <strong class="text-primary">08</strong>
+                  </div>
+                </div>
+              </div>
+
+              <!-- View Details Button (Opens Modal) -->
+              <button
+                class="view-details-btn"
+                data-bs-toggle="modal"
+                data-bs-target="#appointmentModal"
+              >
+                <i class="bi bi-eye-fill"></i> View Appointment Details
+                <i class="bi bi-arrow-right-circle"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Appointment Details Modal -->
+    <div
+      class="modal fade"
+      id="appointmentModal"
+      tabindex="-1"
+      aria-labelledby="appointmentModalLabel"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"
+      >
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h5 class="modal-title" id="appointmentModalLabel">
+              <i class="bi bi-calendar-day"></i>
+              Today's Appointment Details - Dr. Amarasekara
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <!-- Date and Summary -->
+            <div
+              class="alert alert-primary d-flex justify-content-between align-items-center"
+            >
+              <div>
+                <i class="bi bi-calendar3 me-2"></i>
+                <strong id="modalDate"></strong>
+              </div>
+              <span class="badge bg-primary rounded-pill" id="totalAppointments"
+                >8 Appointments</span
+              >
+            </div>
+
+            <!-- Appointment List -->
+            <div class="appointment-list" id="appointmentList">
+              <!-- Appointment 1 -->
+              <div class="appointment-item">
+                <span class="appointment-time">
+                  <i class="bi bi-clock"></i> 09:00 AM - 10:00 AM
+                </span>
+                <div class="patient-name">
+                  <i class="bi bi-person-circle"></i> Mr. Kamal Perera
+                  <span class="badge-new">New Patient</span>
+                </div>
+                <div class="patient-details">
+                  <i class="bi bi-telephone"></i> 077-1234567
+                </div>
+                <div class="patient-details">
+                  <i class="bi bi-envelope"></i> kamal.perera@email.com
+                </div>
+                <div class="treatment-type">
+                  <i class="bi bi-droplet"></i> Root Canal Treatment
+                </div>
+              </div>
+
+              <!-- Appointment 2 -->
+              <div class="appointment-item">
+                <span class="appointment-time">
+                  <i class="bi bi-clock"></i> 10:30 AM - 11:30 AM
+                </span>
+                <div class="patient-name">
+                  <i class="bi bi-person-circle"></i> Mrs. Nimali Silva
+                </div>
+                <div class="patient-details">
+                  <i class="bi bi-telephone"></i> 071-9876543
+                </div>
+                <div class="patient-details">
+                  <i class="bi bi-envelope"></i> nimali.s@email.com
+                </div>
+                <div class="treatment-type">
+                  <i class="bi bi-brush"></i> Teeth Cleaning
+                </div>
+              </div>
+
+              <!-- Appointment 3 -->
+              <div class="appointment-item">
+                <span class="appointment-time">
+                  <i class="bi bi-clock"></i> 11:45 AM - 12:30 PM
+                </span>
+                <div class="patient-name">
+                  <i class="bi bi-person-circle"></i> Mr. Priyantha Wijesinghe
+                </div>
+                <div class="patient-details">
+                  <i class="bi bi-telephone"></i> 072-3344556
+                </div>
+                <div class="patient-details">
+                  <i class="bi bi-envelope"></i> priyantha.w@email.com
+                </div>
+                <div class="treatment-type">
+                  <i class="bi bi-capsule"></i> Dental Filling
+                </div>
+              </div>
+
+              <!-- Appointment 4 -->
+              <div class="appointment-item">
+                <span class="appointment-time">
+                  <i class="bi bi-clock"></i> 02:00 PM - 03:00 PM
+                </span>
+                <div class="patient-name">
+                  <i class="bi bi-person-circle"></i> Ms. Chamari Rathnayake
+                  <span class="badge-new">New Patient</span>
+                </div>
+                <div class="patient-details">
+                  <i class="bi bi-telephone"></i> 078-9988776
+                </div>
+                <div class="patient-details">
+                  <i class="bi bi-envelope"></i> chamari.r@email.com
+                </div>
+                <div class="treatment-type">
+                  <i class="bi bi-eyedropper"></i> Crown Placement
+                </div>
+              </div>
+
+              <!-- Appointment 5 -->
+              <div class="appointment-item">
+                <span class="appointment-time">
+                  <i class="bi bi-clock"></i> 03:30 PM - 04:30 PM
+                </span>
+                <div class="patient-name">
+                  <i class="bi bi-person-circle"></i> Mr. Sunil Bandara
+                </div>
+                <div class="patient-details">
+                  <i class="bi bi-telephone"></i> 076-4455667
+                </div>
+                <div class="patient-details">
+                  <i class="bi bi-envelope"></i> sunil.b@email.com
+                </div>
+                <div class="treatment-type">
+                  <i class="bi bi-droplet-half"></i> Scaling
+                </div>
+              </div>
+
+              <!-- Appointment 6 -->
+              <div class="appointment-item">
+                <span class="appointment-time">
+                  <i class="bi bi-clock"></i> 05:00 PM - 06:00 PM
+                </span>
+                <div class="patient-name">
+                  <i class="bi bi-person-circle"></i> Mrs. Kumari Jayawardena
+                </div>
+                <div class="patient-details">
+                  <i class="bi bi-telephone"></i> 070-1122334
+                </div>
+                <div class="patient-details">
+                  <i class="bi bi-envelope"></i> kumari.j@email.com
+                </div>
+                <div class="treatment-type">
+                  <i class="bi bi-hospital"></i> Tooth Extraction
+                </div>
+              </div>
+
+            <!-- Summary Stats -->
+            <div class="row mt-4">
+              <div class="col-4">
+                <div class="text-center p-3 bg-light rounded">
+                  <h6 class="text-muted mb-1">Total</h6>
+                  <h3 class="text-primary mb-0">1</h3>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="text-center p-3 bg-light rounded">
+                  <h6 class="text-muted mb-1">New</h6>
+                  <h3 class="text-success mb-0">02</h3>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="text-center p-3 bg-light rounded">
+                  <h6 class="text-muted mb-1">Returning</h6>
+                  <h3 class="text-info mb-0">06</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <div class="d-flex align-items-center">
+              <i class="bi bi-people-fill text-primary me-2 fs-4"></i>
+              <span class="total-count">Total Patients Today: 08</span>
+            </div>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              <i class="bi bi-x-circle"></i> Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="bookNowBtn" class="appointment-cta">
+      <a href="pages/modalexsai.html" class="btn btn-appointment">
+        <i class="bi bi-calendar-plus me-2"></i>Book Now
+      </a>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // Set current date
+      const options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      };
+      const today = new Date();
+      const formattedDate = today.toLocaleDateString("en-US", options);
+
+      // Update dates in both places
+      document.getElementById("currentDate").textContent = formattedDate;
+      document.getElementById("modalDate").textContent = formattedDate;
+
+      // Navbar scroll effect
+      window.addEventListener("scroll", function () {
+        const navbar = document.querySelector(".navbar");
+        if (window.scrollY > 50) {
+          navbar.classList.add("scrolled");
+        } else {
+          navbar.classList.remove("scrolled");
+        }
+      });
+
+      // Optional: Update appointment counts dynamically
+      function updateAppointmentCounts() {
+        const appointments = document.querySelectorAll(
+          "#appointmentList .appointment-item",
+          // methanadi thamai data tiaka  modal ekata watenne 
+        );
+
+        
+        const totalCount = appointments.length;
+
+        // Update today's count
+        document.getElementById("todayCount").textContent = totalCount
+          .toString()
+          .padStart(2, "0");
+
+        // Update modal total
+        document.getElementById("totalAppointments").textContent =
+          totalCount + " Appointments";
+
+        // Update footer total
+        document.querySelector(".total-count").textContent =
+          `Total Patients Today: ${totalCount.toString().padStart(2, "0")}`;
+      }
+
+      // Call the function
+      updateAppointmentCounts();
+    </script>
+  </body>
+</html>
