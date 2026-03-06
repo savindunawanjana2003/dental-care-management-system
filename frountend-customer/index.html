@@ -348,20 +348,40 @@
         }
       }
 
-      @media (max-width: 1567px) {
-        .login-card {
-          margin-top: 150px;
-          margin-left: 70vw;
-        }
-      }
-
       header {
         position: relative;
       }
 
+      @media (max-width: 1200px) {
+        .login-card {
+          right: 3%;
+          max-width: 380px;
+        }
+      }
+
+      @media (max-width: 992px) {
+        .login-card {
+          right: 50%;
+          transform: translate(50%, -50%);
+          max-width: 360px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .login-card {
+          position: relative;
+          top: auto;
+          right: auto;
+          transform: none;
+
+          margin: 120px auto 20px auto;
+          max-width: 90%;
+        }
+      }
+
       /* =======login cart style============= */
 
-      .login-card {
+      /* .login-card {
         border: none;
         border-radius: 15px;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
@@ -372,6 +392,22 @@
         z-index: 1000;
         margin-top: 150px;
         margin-left: 70vw;
+      } */
+
+      .login-card {
+        display: none;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 420px;
+        overflow: hidden;
+        position: absolute;
+        z-index: 1000;
+
+        top: 50%;
+        right: 5%;
+        transform: translateY(-50%);
       }
 
       .login-header {
@@ -426,6 +462,73 @@
       .register-link a {
         text-decoration: none;
         font-weight: 500;
+      }
+
+      .login-header {
+        position: relative;
+      }
+
+      .or-divider {
+        text-align: center;
+        margin: 15px 0;
+        font-weight: 500;
+        color: #0f0909;
+      }
+
+      /* Google Button */
+      .social-login {
+        text-align: center;
+      }
+
+      .btn-google {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #ffef0a9c;
+
+        color: #444;
+        border: 1px solid #ddd;
+        padding: 8px 12px;
+        border-radius: 5px;
+        font-weight: 500;
+        cursor: pointer;
+        width: 100%;
+        max-width: 250px;
+        margin: 0 auto;
+        transition: all 0.2s;
+        border-radius: 10px;
+      }
+
+      .btn-google img {
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+      }
+
+      .btn-google:hover {
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        transform: translateY(-1px);
+      }
+
+      .close-btn-circle {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        background-color: #ff4d4f; /* red circle */
+        color: white;
+        border-radius: 50%; /* makes it a circle */
+        font-weight: bold;
+        font-size: 20px;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .close-btn-circle:hover {
+        transform: scale(1.2);
       }
 
       /* =========================== */
@@ -509,7 +612,83 @@
     <header>
       <!-- =====login====== -->
 
-      <div class="login-card">
+      <div id="loginCardId" class="login-card">
+        <div class="login-header">
+          <!-- CLOSE BUTTON CIRCLE -->
+          <span id="closeLogin" class="close-btn-circle">&times;</span>
+
+          <i class="bi bi-person-circle" style="font-size: 45px"></i>
+          <h2>Customer Login</h2>
+          <p>Welcome back</p>
+        </div>
+
+        <div class="login-body">
+          <form id="loginForm">
+            <div class="mb-3">
+              <label class="form-label">Email Address</label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-envelope"></i>
+                </span>
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="Enter email"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Password</label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="bi bi-lock"></i>
+                </span>
+                <input
+                  type="password"
+                  class="form-control"
+                  placeholder="Enter password"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" />
+              <label class="form-check-label">Remember me</label>
+            </div>
+
+            <!-- Login Button -->
+            <button class="btn btn-login" type="submit">
+              <i class="bi bi-box-arrow-in-right"></i> Login
+            </button>
+
+            <!-- Register Link -->
+            <div class="register-link">
+              Don't have an account?
+              <a href="register.html">Register here</a>
+            </div>
+
+            <!-- OR Divider -->
+            <div class="or-divider">OR</div>
+
+            <!-- Google Sign-In Button -->
+            <div class="social-login">
+              <button class="btn btn-google" type="button">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                  alt="Google logo"
+                />
+                Sign in with Google
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- 
+      <div id="loginCardId" class="login-card">
         <div class="login-header">
           <i class="bi bi-person-circle" style="font-size: 45px"></i>
           <h2>Customer Login</h2>
@@ -561,7 +740,7 @@
             </div>
           </form>
         </div>
-      </div>
+      </div> -->
 
       <!-- ======== -->
       <div
@@ -1250,6 +1429,33 @@
     <script src="/Assest/lib/jquery-3.7.1.min.js"></script>
 
     <script>
+      // ===========login==============
+
+      //close login
+
+      $("#closeLogin").on("click", () => {
+        const signInBtn1 = document.getElementById("sinig");
+        const loginCard2 = document.getElementById("loginCardId");
+        if (loginCard2.style.display === "block") {
+          loginCard.style.display = "none";
+        } else {
+          loginCard2.style.display = "block";
+        }
+      });
+
+      const signInBtn = document.getElementById("sinig");
+      const loginCard = document.getElementById("loginCardId");
+
+      signInBtn.addEventListener("click", () => {
+        if (loginCard.style.display === "block") {
+          loginCard.style.display = "none";
+        } else {
+          loginCard.style.display = "block";
+        }
+      });
+
+      // ===============================
+
       // Navbar scroll effect
       window.addEventListener("scroll", function () {
         const navbar = document.querySelector(".navbar");
@@ -1268,15 +1474,6 @@
         }, 1200);
       });
 
-      $("#sinig").click(function () {
-        $("#loader").css("display", "flex");
-
-        setTimeout(function () {
-          window.location.href = "pages/signin.html";
-        }, 1200);
-      });
-
-      // Smooth scroll for anchor links
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
           e.preventDefault();
